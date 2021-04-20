@@ -1,0 +1,31 @@
+html
+    head
+        title= "Contact Names"
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        
+    body
+    div(class="container")
+    <a href="/">Go to Home</a>
+    <div class='well text-center'><b>SEARCH Results</b></div>
+        table(class = 'table table-striped')
+            thead
+                tr
+                    th ID
+                    th First name
+                    th Middle name
+                    th Last name
+            each item in items
+                tr
+                    td=item.Contact_id
+                    td=item.Fname
+                    td=item.Mname
+                    td=item.Lname
+                        //- var url = '/updatecontact';a(href = url +'/'+item.Contact_id) Modify
+                    - var url = '/contacts/updatecontact';
+                    td
+                        a(href = url+'/'+item.Contact_id class="btn btn-success") MODIFY
+                    td
+                        a(href = '/contacts/deletecontact/'+item.Contact_id class="btn btn-danger") DELETE
+                    td
+                        div(class="col-4")
+                            p=asterrd

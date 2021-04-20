@@ -1,0 +1,123 @@
+head
+  title Contacts
+  include partials/header.pug
+  script(type='text/javascript').
+    $(document).ready(() => {
+    //- $(".container").hide();
+    // $('#new-contact-form').click(() =>{
+    //     console.log("clicked new contact from!"+new Date());
+    // })
+    //- $("#new-contact-form").click(function(){
+    //- $(".container").toggle();
+    //- });
+    //$("button").click(function(){
+    // $("#reset").click(function(){
+    // alert("Confirm Reset");
+    // });
+    // })
+    });
+body
+    .row.well
+        .col-2
+        .col.max-auto.align-items-center
+            a.btn-lg.btn-primary(href='/contacts') Show contacts
+        //.col
+            button#new-contact-form.btn.btn-outline-success(type='button') New Contact Form
+        .col
+            nav.navbar.navbar-dark.bg-dark
+                form.form-inline(method='post' action='/search')
+                    input.form-control.mr-sm-2(name='search' type='search' placeholder='Search' aria-label='Search')
+                    button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+    .container
+        h2#top.text-center New Contact Form
+        form.form(method='post' action='/submit')
+            fieldset
+                // Form Name
+                legend
+                .form-row
+                    .form-group.col-md-4
+                        label(for='Fname') First Name
+                        input#Fname.form-control(name='Fname' type='text' placeholder='Enter First Name' required='')
+                    .form-group.col-md-4
+                        label(for='Mname') Middle Name
+                        input#Mname.form-control(name='Mname' type='text' placeholder='Enter Middle Name' value='')
+                    .form-group.col-md-4
+                        label(for='Lname') Last Name
+                        input#Lname.form-control(name='Lname' type='text' placeholder='Enter Last Name' required='')
+                // Adrresstype and street ROW -------------
+                .form-row
+                    // Address type Text input
+                    .form-group.col-md-4
+                        label(for='Address_type') Address type
+                        input#Address_type.form-control.input-md(name='Address_type' type='text' placeholder='home, work, other, etc.' value='')
+                    // Street Address Text input
+                    .form-group.col-md-8
+                        label.control-label(for='Address') Address
+                        input#Address.form-control.input-md(name='Address' type='text' placeholder='Enter Street Address' value='')
+                    .form-row
+                    // City Text input
+                    .form-group.col-md-4
+                        label.control-label(for='City') City
+                        input#City.form-control.input-md(name='City' type='text' placeholder='Enter City' value='')
+                    // State Text input
+                    .form-group.col-md-4
+                        label.control-label(for='State') State
+                        input#State.form-control.input-md(name='State' type='text' placeholder='Enter State' value='')
+                    // Zipcode Text input
+                    .form-group.col-md-4
+                        label.control-label(for='Zip') Zipcode
+                        input#Zip.form-control.input-md(name='Zip' type='text' placeholder='Enter Zipcode' value='')
+                //
+                    Add new Address Button
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="addNewAddress"></label>
+                    <button id="addNewAddress" name="addNewAddress" type="button" class="btn btn-secondary">Add new Address</button>
+                    </div>          --
+                // PHONE ROW
+                .form-row
+                    // Text input Phone
+                    .form-group.col-md
+                        label.control-label(for='Phone_type') Phone_type
+                        input#Phone_type.form-control.input-md(name='Phone_type' type='text' placeholder='home, work, fax, etc.' value='')
+                    // Area code input
+                    .form-group.col-md
+                        label.control-label(for='Area_code') Area code
+                        input#Area_code.form-control.input-md(name='Area_code' type='text' maxlength='3' placeholder='Enter Area code (3 digits)' value='')
+                    // number input
+                    .form-group.col-md
+                        label.control-label(for='Number') Number
+                        input#Number.form-control.input-md(name='Number' type='text' placeholder='Enter Number' value='')
+                //
+                    Add new Phone number Button
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="addNewPhone"></label>
+                    <button id="addNewPhone" name="addNewPhone" type="button" class="btn btn-secondary">Add new Phone</button>
+                    </div>          --
+                .form-row
+                    // Date type input
+                    .form-group.col-md
+                        label.control-label(for='Date_type') Date type
+                        input#Date_type.form-control.input-md(name='Date_type' type='text' placeholder='birthday, anniversary, etc.' value='')
+                    // Date input
+                    .form-group.col-md
+                        label.control-label(for='Date') Date
+                        input#Date.form-control.input-md(name='Date' type='date' placeholder='change to Calendar date' value='')
+                //
+                    Add new Date Button
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="addNewDate"></label>
+                    <div class="col-md-4">
+                    <button id="addNewDate" name="addNewDate" type="button" class="btn btn-secondary">Add new Date</button>
+                    </div>
+                    </div>
+                // Button
+                .row
+                .form-row
+                    .form-group
+                        label.col-md-4.control-label(for='submit')
+                        button#submit.btn.btn-primary(type='submit' name='submit') Submit
+                    .form-group.col-md-2.ml-auto
+                        button#reset.btn.btn-danger(type='reset') Reset
+                //
+                    <a href="#top">Go to top</a>
+

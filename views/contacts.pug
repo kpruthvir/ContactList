@@ -1,0 +1,253 @@
+doctype html
+html
+    head
+        title= "Contact Names"
+        include partials/header.pug
+        //- style
+        //-     .hidden_id
+        //-         display: none
+        
+    body
+    
+    div(class="container")
+        div( class='well well-sm text-center')
+            .row
+                .col
+                    <a href="/">Go to Home</a>
+                .col
+                    h3 Contact details
+                .col.ml-auto
+                    button( class="btn-sm btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseRow1 multiCollapseRow2 multiCollapseRow3") Expand/hide details
+        div
+            table.table.table-striped
+                thead
+                    tr 
+                        th(scope ="col") #
+                        th(scope ="col") First name
+                        th(scope ="col") Middle name
+                        th(scope ="col") Last name
+                        th(scope ="col") Add new Address
+                        th(scope ="col") Add new Phone
+                        th(scope ="col") Add new Date
+                        th(scope ="col") Modify
+                        th(scope ="col") Delete
+                tbody 
+                each item in items[0]
+                    tr 
+                        th(scope="row")=item.id
+                        td=item.Fname
+                        td=item.Mname
+                        td=item.Lname
+                        td 
+                            // icon to add new address
+                            a( data-toggle='modal' data-target='#myModalAddress'+item.Contact_id) 
+                                ion-icon(name="add-outline")
+                            // Address Modal
+                            div(class="modal fade" id='myModalAddress'+item.Contact_id tabindex='-1' role='dialog' aria-labelledby='myModalLabelAddress')
+                                .modal-dialog(role='document')
+                                    .modal-content
+                                        form.form(method='post' action='/contacts/submitNewAddress')
+                                            .modal-header
+                                                h4#myModalLabelAddress.modal-title Add New Address
+                                                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                                span(aria-hidden='true') &times;
+                                            .modal-body
+                                                .form-row
+                                                    .form-group.hidden_id.row(name='Contact_id')
+                                                        label(for='addrContact_id') Contact_id
+                                                        input#addrContact_id.form-control.input-md(name='addrContact_id' type='text' value=item.Contact_id)
+                                                    // Address type Text input
+                                                    .form-group.col-md-4
+                                                        label(for='Address_type') Address type
+                                                        input#Address_type.form-control.input-md(name='Address_type' type='text' placeholder='home, work, other, etc.')
+                                                    // Street Address Text input
+                                                    .form-group.col-md-8
+                                                        label.control-label(for='Address') Address
+                                                        input#Address.form-control.input-md(name='Address' type='text' placeholder='Enter Street Address')
+                                                .form-row
+                                                    // City Text input
+                                                    .form-group.col-md-4
+                                                        label.control-label(for='City') City
+                                                        input#City.form-control.input-md(name='City' type='text' placeholder='Enter City')
+                                                    // State Text input
+                                                    .form-group.col-md-4
+                                                        label.control-label(for='State') State
+                                                        input#State.form-control.input-md(name='State' type='text' placeholder='Enter State')
+                                                    // Zipcode Text input
+                                                    .form-group.col-md-4
+                                                        label.control-label(for='Zip') Zipcode
+                                                        input#Zip.form-control.input-md(name='Zip' type='text' placeholder='Enter Zipcode')
+                                            .modal-footer
+                                                button.btn.btn-default(type='button' data-dismiss='modal') Close
+                                                button#submitNewAddress.btn.btn-primary(type='submit' name='submitNewAddress') Add Address
+                        td 
+                            // Icon to add new phone
+                            a(data-toggle='modal' data-target='#myModalPhone'+item.Contact_id) 
+                                ion-icon(name="call-outline")
+                            // Phone Modal
+                            .modal.fade(id='myModalPhone'+item.Contact_id tabindex='-1' role='dialog' aria-labelledby='myModalLabelPhone')
+                                .modal-dialog(role='document')
+                                    .modal-content
+                                        form.form(method='post' action='/contacts/submitNewPhone')
+                                            fieldset
+                                                .modal-header
+                                                    h4#myModalLabelPhone.modal-title Add New Phone
+                                                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                                    span(aria-hidden='true') &times;
+                                                .modal-body
+                                                    // submit New Phone Name
+                                                    .form-row
+                                                        .form-group.hidden_id.row(name='Contact_id')
+                                                            label(for='phnContact_id') Contact_id
+                                                            input#phnContact_id.form-control.input-md(name='phnContact_id' type='text' value=item.Contact_id)
+                                                    // PHONE ROW
+                                                    .form-row
+                                                        // Text input Phone
+                                                        .form-group.col-md
+                                                            label.control-label(for='Phone_type') Phone type
+                                                            input#Phone_type.form-control.input-md(name='Phone_type' type='text' placeholder='home, work, fax, etc.')
+                                                    .form-row
+                                                        // Area code input
+                                                        .form-group.col-md
+                                                            label.control-label(for='Area_code') Area code
+                                                            input#Area_code.form-control.input-md(name='Area_code' type='text' size="3" maxlength="3" placeholder='Enter Area code (3 digits)')
+                                                    .form-row
+                                                        // number input
+                                                        .form-group.col-md
+                                                            label.control-label(for='Number') Number
+                                                            input#Number.form-control.input-md(name='Number' type='text' placeholder='Enter Number')
+                                                .modal-footer
+                                                    button.btn.btn-default(type='button' data-dismiss='modal') Close
+                                                    button#submitNewPhone.btn.btn-primary(type='submit' name='submitNewPhone') Add Phone
+                            
+                        td 
+                            // icon to add new date
+                            a( data-toggle='modal' data-target='#myModalDate'+item.Contact_id) 
+                                ion-icon(name="calendar-outline")
+                            // Date Modal
+                            .modal.fade(id='myModalDate'+item.Contact_id tabindex='-1' role='dialog' aria-labelledby='myModalLabelDate')
+                                .modal-dialog(role='document')
+                                    .modal-content
+                                        form.form(method='post' action='/contacts/submitNewDate')
+                                            fieldset
+                                                .modal-header
+                                                    h4#myModalLabelDate.modal-title Add New Date
+                                                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                                                    span(aria-hidden='true') &times;
+                                                .modal-body
+                                                    // submit New Date
+                                                    .form-row
+                                                        .form-group.hidden_id.row(name='Contact_id')
+                                                            label(for='dtContact_id') Contact_id
+                                                            input#dtContact_id.form-control.input-md(name='dtContact_id' type='text' value=item.Contact_id)
+                                                    .form-row
+                                                        // Text input Date type
+                                                        .form-group.col-md
+                                                            label.control-label(for='Date_type') Date type
+                                                            input#Date_type.form-control.input-md(name='Date_type' type='text' placeholder="birthday, anniversary, etc.")
+                                                    .form-row
+                                                        // Date input
+                                                        .form-group.col-md
+                                                            label.control-label(for='Date') Date
+                                                            input#Date.form-control.input-md(name='Date' type='date' placeholder="input date" class="form-control input-md")
+                                                .modal-footer
+                                                    button.btn.btn-default(type='button' data-dismiss='modal') Close
+                                                    button#submitNewDate.btn.btn-primary(type='submit' name='submitNewDate') Add Date
+                          
+                        td 
+                            a.btn-warning(href = '/contacts/updatecontact/'+item.Contact_id) 
+                                ion-icon(name="create-outline")
+                        td 
+                            form(method="post" action='/contacts/deletecontact/'+item.Contact_id)
+                                button.btn-danger(type="submit" id="confirm-delete")
+                                    ion-icon( name="trash-outline")
+                        
+                    tr
+                        td(colspan="100%")
+                            // toggle box
+                            div(class="container-fluid collapse multi-collapse" id="multiCollapseRow1")
+                                table(border="1" width="100%" style="margin: 0px; padding:1px; font-size:12px;")
+                                    thead
+                                        - let addrflag = false
+                                        each addritem in items[1]
+                                            - if(item.Contact_id==addritem.Contact_id){
+                                            -    addrflag = true
+                                            -    break}
+                                        
+                                        if addrflag
+                                            tr
+                                                th(scope ="col") Address type
+                                                th(scope ="col") Address
+                                                th(scope ="col") City
+                                                th(scope ="col") State
+                                                th(scope ="col") Zip
+                                                th(scope ="col")
+                                    tbody      
+                                        each addritem in items[1]
+                                            tr
+                                                if(item.Contact_id==addritem.Contact_id)
+                                                    td=addritem.Address_type
+                                                    td=addritem.Address
+                                                    td=addritem.City
+                                                    td=addritem.State
+                                                    td=addritem.Zip
+                                                    td
+                                                        form(method="post" action='/contacts/deleteaddress/'+addritem.Address_id)
+                                                            input.btn-danger(type="submit" id="confirm-delete" value="Delete address")
+                                                    
+                            
+                        
+                            div(class="container-fluid collapse multi-collapse" id="multiCollapseRow2")
+                                table(border="1" width="100%" style="margin: 0px; font-size:12px;")
+                                    thead
+                                        - let phnflag = false
+                                        each phnitem in items[2]
+                                            - if(item.Contact_id==phnitem.Contact_id){
+                                            -    phnflag = true
+                                            -    break}
+                                        
+                                        if phnflag
+                                            tr
+                                                th Phone type
+                                                th Area code
+                                                th Number
+                                                th
+                                    tbody
+                                        each phnitem in items[2]
+                                            tr
+                                            if(item.Contact_id==phnitem.Contact_id)
+                                                td=phnitem.Phone_type
+                                                td=phnitem.Area_code
+                                                td=phnitem.Number
+                                                td
+                                                    form(method="post" action='/contacts/deletephone/'+phnitem.Phone_id)
+                                                        input.btn-danger(type="submit" id="confirm-delete" value="Delete phone")
+                            
+
+                            div(class="container-fluid collapse multi-collapse" id="multiCollapseRow3")
+                                table(border="1" width="100%" style="margin: 0px; font-size:12px;")
+                                    thead
+                                        - let dtflag = false
+                                        each dtitem in items[3]
+                                            - if(item.Contact_id==dtitem.Contact_id){
+                                            -    dtflag = true
+                                            -    break}
+                                        
+                                        if dtflag
+                                            tr
+                                                th Date type
+                                                th Date
+                                                th
+                                    tbody
+                                        each dtitem in items[3]
+                                            tr
+                                                if(item.Contact_id==dtitem.Contact_id)
+                                                    td=dtitem.Date_type
+                                                    - var d = new Date(dtitem.Date) 
+                                                    - var date = d.toLocaleDateString('en-CA')
+                                                    td=date
+                                                    td
+                                                        form(method="post" action='/contacts/deletedate/'+dtitem.Date_id)
+                                                            input.btn-danger(type="submit" id="confirm-delete" value="Delete date")
+
+                                

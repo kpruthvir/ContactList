@@ -1,0 +1,91 @@
+head
+    title Update Contact
+    include partials/header.pug
+h2#top.well.text-center Contact Update Form
+.container
+    .row
+    form#formUpdate.form(method='post' action='/contacts/update')
+        fieldset
+        // Form Name
+        legend
+            .form-row
+                    label(hidden for='Contact_id') Contact_id
+                    input#Contact_id.form-control.input-md(hidden name='Contact_id' type='text' value=items[0][0].Contact_id)
+            .form-row
+                .form-group.col-md-4
+                    label(for='Fname') First Name
+                    input#Fname.form-control(name='Fname' type='text' placeholder='Enter First Name' required='' value=items[0][0].Fname)
+                .form-group.col-md-4
+                    label(for='Mname') Middle Name
+                    input#Mname.form-control(name='Mname' type='text' placeholder='Enter Middle Name' value=items[0][0].Mname)
+                .form-group.col-md-4
+                    label(for='Lname') Last Name
+                    input#Lname.form-control(name='Lname' type='text' placeholder='Enter Last Name' required='' value=items[0][0].Lname)
+            // Adrresstype and street row
+            each item in items[1]
+                .form-row
+                    label(hidden for='Address_id') Address_id
+                    input#Address_id.form-control.input-md(hidden name='Address_id' type='text' value=item.Address_id)
+                .form-row
+                    // Address type Text input
+                    .form-group.col-md-4
+                        label(for='Address_type') Address type
+                        input#Address_type.form-control.input-md(name='Address_type' type='text' style="background-color:#a9a9a9" placeholder='home, work, other, etc.' value=item.Address_type)
+                    // Street Address Text input
+                    .form-group.col-md-8
+                        label.control-label(for='Address') Address
+                        input#Address.form-control.input-md(name='Address' type='text' placeholder='Enter Street Address' value=item.Address)
+                .form-row
+                    // City Text input
+                    .form-group.col-md-4
+                        label.control-label(for='City') City
+                        input#City.form-control.input-md(name='City' type='text' placeholder='Enter City' value=item.City)
+                    // State Text input
+                    .form-group.col-md-4
+                        label.control-label(for='State') State
+                        input#State.form-control.input-md(name='State' type='text' placeholder='Enter State' value=item.State)
+                    // Zipcode Text input
+                    .form-group.col-md-4
+                        label.control-label(for='Zip') Zip
+                        input#Zip.form-control.input-md(name='Zip' type='text' placeholder='Enter Zipcode' value=item.Zip)
+                    // Add new Address Button
+            
+            each item in items[2]
+                .form-row
+                    label(hidden for='Phone_id') Phone_id
+                    input#Phone_id.form-control.input-md(hidden name='Phone_id' type='text' value=item.Phone_id)
+                .form-row
+                    // Text input Phone
+                    .form-group.col-md
+                        label.control-label(for='Phone_type') Phone type
+                        input#Phone_type.form-control.input-md(name='Phone_type' type='text' style="background-color:#a8a8a8" placeholder='home, work, fax, etc.' value=item.Phone_type)
+                    // Area code input
+                    .form-group.col-md
+                        label.control-label(for='Area_code') Area code
+                        input#Area_code.form-control.input-md(name='Area_code' type='text' maxlength="3" placeholder='Enter Area code (3 digits)' value=item.Area_code)
+                    // number input
+                    .form-group.col-md
+                        label.control-label(for='Number') Number
+                        input#Number.form-control.input-md(name='Number' type='text' placeholder='Enter Number' value=item.Number)
+            
+            each item in items[3]
+                .form-row
+                    label(hidden for='Date_id') Date_id
+                    input#Date_id.form-control.input-md(hidden name='Date_id' type='text' value=item.Date_id)
+                .form-row
+                    // Date type input
+                    .form-group.col-md
+                        label.control-label(for='Date_type') Date type
+                        input#Date_type.form-control.input-md(name='Date_type' type='text' placeholder='birthday, anniversary, etc.' value=item.Date_type)
+                    // Date input
+                    .form-group.col-md
+                        label.control-label(for='Date') Date
+                        - var date = new Date(item.Date).toISOString().slice(0,10)
+                        input#Date.form-control.input-md(name='Date' type='date' placeholder='input date' value=date)
+            .form-row
+                // submit and reset buttons
+                .form-group.col-md-4
+                    label.control-label(for='submit')
+                    button#submit.btn.btn-primary(type='submit' form="formUpdate" name='submit') Submit
+                //- .form-group.col-md-2.ml-auto
+                //-     button.btn.btn-danger(type='reset') Reset
