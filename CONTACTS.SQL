@@ -16,40 +16,41 @@ CREATE TABLE CONTACT(
 	CONSTRAINT pk_contact PRIMARY KEY(Contact_id)
 );
 
-DROP TABLE IF EXISTS PHONE;
-CREATE TABLE PHONE(
-	Phone_id	INT NOT NULL AUTO_INCREMENT,
-	Contact_id	INT,
-	Phone_type	VARCHAR(10),
-	Area_code	INT(3) CHECK (Area_code > 99 AND Area_code < 1000),
-	`Number`	INT(7),
-	CONSTRAINT pk_table PRIMARY KEY (Phone_id),
-	CONSTRAINT fk_phone_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id)
-	-- 	CONSTRAINT fk_phone_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id) ON DELETE CASCADE
-	--- alter TABLE address add foreign key(Contact_id) references contact(Contact_id) on DELETE CASCADE
-);
 
 DROP TABLE IF EXISTS ADDRESS;
 CREATE TABLE ADDRESS(
 	Address_id	INT	NOT NULL AUTO_INCREMENT,
-	Contact_id	INT,
+	Contact_id	INT NOt NULL,
 	Address_type	VARCHAR(10),
 	Address	VARCHAR(30),
 	City	VARCHAR(15),
 	`State`	VARCHAR(15),
 	Zip		CHAR(5),
 	CONSTRAINT pk_address PRIMARY KEY (Address_id),
-	CONSTRAINT fk_address_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id)
+	CONSTRAINT fk_address_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS PHONE;
+CREATE TABLE PHONE(
+	Phone_id	INT NOT NULL AUTO_INCREMENT,
+	Contact_id	INT NOT NULL,
+	Phone_type	VARCHAR(10),
+	Area_code	INT(3) CHECK (Area_code > 99 AND Area_code < 1000),
+	`Number`	INT(7),
+	CONSTRAINT pk_table PRIMARY KEY (Phone_id),
+	CONSTRAINT fk_phone_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id) ON DELETE CASCADE
+	-- 	CONSTRAINT fk_phone_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id) ON DELETE CASCADE
+	--  alter TABLE address add foreign key(Contact_id) references contact(Contact_id) on DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `DATE`;
 CREATE TABLE `DATE`(
 	Date_id		INT NOT NULL AUTO_INCREMENT,
-	Contact_id	INT,
+	Contact_id	INT NOT NULL,
 	Date_type	VARCHAR(20),
 	`Date`	DATE,
 	CONSTRAINT pk_date PRIMARY KEY (Date_id),
-	CONSTRAINT fk_date_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id)
+	CONSTRAINT fk_date_contact FOREIGN KEY (Contact_id) references CONTACT(Contact_id) ON DELETE CASCADE
 );
 
 INSERT INTO contact VALUES (1,'Cindra','Del','Philipeaux');
@@ -72,5 +73,5 @@ INSERT INTO address VALUES (null,2,'work','37 Sommers Hill','Addison','Texas','7
 INSERT INTO address VALUES (null,3,'home',null,null,null,'75029');
 INSERT INTO address VALUES (null,3,'work',null,null,null,null);
 
-INSERT INTO `date` VALUES (null,2,'1986-06-07');
-INSERT INTO `date` VALUES (null,3,'1965-06-23');
+INSERT INTO `date` VALUES (null,2,'birth','1986-06-07');
+INSERT INTO `date` VALUES (null,3,'birth','1965-06-23');
