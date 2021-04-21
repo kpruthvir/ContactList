@@ -1,14 +1,16 @@
 Basic contact list app
 
-Normalized Database
-sample input in contats.sql
+#schema and sample input in contacts.sql
+# to create database
+source /path/to/contacts.sql
 -----------------
-to run:
+#to run:
 -----------------
-start mysql server with: mysqld --console
+#start mysql server
+mysqld --console
 
-npm install
+#change mysql config in config/db.js
 
-npm run devstart
+npm install && npm run devstart
 
 access on localhost:3001
